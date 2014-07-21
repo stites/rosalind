@@ -23,21 +23,25 @@
 # 20 12 17 21
 #
 # ========================================= #
+function is_divisible(n, i)
+return n % i == 0
+end
 
 function is_prime(n::Int64)
 if n <= 3
   return true
 end
 
-if n % 2 == 0
+if is_divisible(n, 2)
   return false
 end
 
 i = 3
 while i <=sqrt(n)
-  if n % i == 0
+  if is_divisible(n, i)
     return false
   end
+
   i += 2
 end
 
