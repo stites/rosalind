@@ -25,7 +25,15 @@
 # ========================================= #
 
 function is_prime(n::Int64)
-# magic here
+if n <= 3
+  return true
+end
+
+if n % 2 == 0
+  return false
+end
+
+return true
 end
 
 println(is_prime(100))
