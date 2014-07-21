@@ -24,4 +24,8 @@
 #
 # ========================================= #
 
-println("hello world")
+function is_prime(n)
+# magic here
+end
+
+println(is_prime(100))
