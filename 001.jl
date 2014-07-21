@@ -24,7 +24,7 @@
 #
 # ========================================= #
 
-function is_prime(n)
+function is_prime(n::Int64)
 # magic here
 end
 
