@@ -27,11 +27,12 @@
 # start off by opening the text file with a stream:
 f = open("sequence.txt")
 # store the corresponding bases in outer local scope:
-bases = Dict{Char, Int64}() # this is a filled dict
-bases['A'] = 0
-bases['C'] = 0
-bases['G'] = 0
-bases['T'] = 0
+bases = (Char=>Int64)[
+  'A' => 0,
+  'C' => 0,
+  'G' => 0,
+  'T' => 0
+]
 # check out this nifty iterator!
 for line = readlines(f)
   for char = line
