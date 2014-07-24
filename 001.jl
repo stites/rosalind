@@ -23,21 +23,24 @@
 # 20 12 17 21
 #
 # ========================================= #
-function quadratic (f)
-  f1 = derivative(f)
-  c = f(0.0)
-  b = f1(0.0)
-  a = f(1.0) - b - c
-  answer = (sign) -> (-b + sqrt(b^2 + sign*4a*c + 0im))/ 2a
-  return answer(1) , answer(-1)
-end
-function derivative(f)
-    return function(x)
-        h = 0.00001
-        f1 = f(x + h)
-        f0 = f(x)
-        return (f1 - f0) / h
-    end
-end
-derivative((x) -> x^2 + 2x + 3)
 
+# start off by opening the text file with a stream:
+f = open("sequence.txt")
+# store the corresponding bases in outer local scope:
+bases = Dict{Char, Int64}() # this is a filled dict
+bases['A'] = 0
+bases['C'] = 0
+bases['G'] = 0
+bases['T'] = 0
+# check out this nifty iterator!
+for line = readlines(f)
+  for char = line
+    # julia doesn't have one liner
+    # conditional in if-else style:
+    haskey(bases, char) && (bases[char] += 1)
+  end
+end
+# close off the file
+close(f)
+
+println(bases)
