@@ -23,38 +23,21 @@
 # 20 12 17 21
 #
 # ========================================= #
-function is_divisible(n, i)
-return n % i == 0
+function quadratic (f)
+  f1 = derivative(f)
+  c = f(0.0)
+  b = f1(0.0)
+  a = f(1.0) - b - c
+  answer = (sign) -> (-b + sqrt(b^2 + sign*4a*c + 0im))/ 2a
+  return answer(1) , answer(-1)
 end
-
-function is_prime(n::Int64)
-if n <= 3
-  return true
+function derivative(f)
+    return function(x)
+        h = 0.00001
+        f1 = f(x + h)
+        f0 = f(x)
+        return (f1 - f0) / h
+    end
 end
+derivative((x) -> x^2 + 2x + 3)
 
-if is_divisible(n, 2)
-  return false
-end
-
-i = 3
-while i <=sqrt(n)
-  if is_divisible(n, i)
-    return false
-  end
-
-  i += 2
-end
-
-return true
-end
-
-println(is_prime(1))
-println(is_prime(2))
-println(is_prime(3))
-println(is_prime(4))
-println(is_prime(5))
-println(is_prime(6))
-println(is_prime(7))
-println(is_prime(8))
-println(is_prime(9))
-println(is_prime(10))
