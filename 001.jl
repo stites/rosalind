@@ -25,7 +25,7 @@
 # ========================================= #
 
 # start off by opening the text file with a stream:
-f = open("sequence.txt")
+f = open("rosalind_dna.txt")
 # store the corresponding bases in outer local scope:
 bases = (Char=>Int64)[
   'A' => 0,
@@ -44,4 +44,8 @@ end
 # close off the file
 close(f)
 
-println(bases)
+# println(bases)
+println(bases['A'], ' ',
+        bases['C'], ' ',
+        bases['G'], ' ',
+        bases['T'])
