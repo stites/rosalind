@@ -22,3 +22,24 @@
 # GAUGGAACUUGACUACGUAAAUU
 #
 # ========================================= #
+
+function DNA_RNA_file_transcription(f::IOStream)
+  a = String[]
+  for ln = readdlm(f)
+    rna = ""
+    for ch = ln
+      n = (ch == 'T') ? "U" : ch
+      rna*=string(n)
+    end
+    println(rna)
+    push!(a, rna)
+  end
+  writedlm(f, a, '\n')
+
+  close(f)
+end
+
+open(DNA_RNA_file_transcription, "rna.txt", "r+")
+
+
+# check file for result
