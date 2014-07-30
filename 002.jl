@@ -39,7 +39,7 @@ function DNA_RNA_file_transcription(f::IOStream)
   close(f)
 end
 
-open(DNA_RNA_file_transcription, "rna.txt", "r+")
+open(DNA_RNA_file_transcription, "rosalind_rna.txt", "r+")
 
 
 # check file for result
