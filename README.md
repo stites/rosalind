@@ -24,3 +24,8 @@ my hands dirty.
   |  processing. In addition, the Julia developer community is contributing a
   |  number of external packages through Julia’s built-in package manager at a
   |  rapid pace.
+
+### On folder structure
+
+The numbering is the order with which the rosalind problems where completed and
+the character sequence following is the rosalind code for the problem.
