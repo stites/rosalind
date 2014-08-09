@@ -60,37 +60,28 @@
 #
 # P(child has A)
 #        = P(Aa` OR AA`)
-#        = P(Aa`) + P(AA`) - P(Aa` and AA`)            # last one is impossible!
+#        = 1 - P(Aa1 OR AA`)
+#        = 1 - P(aa`)
 #
-#  P(?A) = P(?A | AA_AA) = P(Aa` | AA_AA) = P(AA_AA) * P(Aa`) = (P(AA) * P(AA)) * P(Aa`)= ((k/z * k/z) *    0) = 0
-#                        + P(AA` | AA_AA) = P(AA_AA) * P(AA`) = (P(AA) * P(AA)) * P(AA`)= ((k/z * k/z) * 1.00) = (2k)/(  z^2)
-#        + P(?A | AA_Aa) = P(Aa` | AA_Aa) = P(AA_Aa) * P(Aa`) = (P(AA) * P(Aa)) * P(Aa`)= ((k/z * m/z) * 0.50) = (km)/(2 z^2)
-#                        + P(AA` | AA_Aa) = P(AA_Aa) * P(AA`) = (P(AA) * P(Aa)) * P(AA`)= ((k/z * m/z) * 0.50) = (km)/(2 z^2)
-#        + P(?A | AA_aa) = P(Aa` | AA_aa) = P(AA_aa) * P(Aa`) = (P(AA) * P(aa)) * P(Aa`)= ((k/z * n/z) * 1.00) = (kn)/(  z^2)
-#                        + P(AA` | AA_aa) = P(AA_aa) * P(AA`) = (P(AA) * P(aa)) * P(AA`)= ((k/z * n/z) *    0) = 0
-#        + P(?A | Aa_AA) = P(Aa` | Aa_AA) = P(Aa_AA) * P(Aa`) = (P(Aa) * P(AA)) * P(Aa`)= ((m/z * k/z) * 0.50) = (km)/(2 z^2)
-#                        + P(AA` | Aa_AA) = P(Aa_AA) * P(AA`) = (P(Aa) * P(AA)) * P(AA`)= ((m/z * k/z) * 0.50) = (km)/(2 z^2)
-#        + P(?A | Aa_Aa) = P(Aa` | Aa_Aa) = P(Aa_Aa) * P(Aa`) = (P(Aa) * P(Aa)) * P(Aa`)= ((m/z * m/z) * 0.50) = (mm)/(2 z^2)
-#                        + P(AA` | Aa_Aa) = P(Aa_Aa) * P(AA`) = (P(Aa) * P(Aa)) * P(AA`)= ((m/z * m/z) * 0.25) = (mm)/(4 z^2)
-#        + P(?A | Aa_aa) = P(Aa` | Aa_aa) = P(Aa_aa) * P(Aa`) = (P(Aa) * P(aa)) * P(Aa`)= ((m/z * n/z) * 0.50) = (mn)/(2 z^2)
-#                        + P(AA` | Aa_aa) = P(Aa_aa) * P(AA`) = (P(Aa) * P(aa)) * P(AA`)= ((m/z * n/z) *    0) = 0
-#        + P(?A | aa_AA) = P(Aa` | aa_AA) = P(aa_AA) * P(Aa`) = (P(aa) * P(AA)) * P(Aa`)= ((n/z * k/z) * 1.00) = (kn)/(  z^2)
-#                        + P(AA` | aa_AA) = P(aa_AA) * P(AA`) = (P(aa) * P(AA)) * P(AA`)= ((n/z * k/z) *    0) = 0
-#        + P(?A | aa_Aa) = P(Aa` | aa_Aa) = P(aa_Aa) * P(Aa`) = (P(aa) * P(Aa)) * P(Aa`)= ((n/z * m/z) * 0.50) = (mn)/(2 z^2)
-#                        + P(AA` | aa_Aa) = P(aa_Aa) * P(AA`) = (P(aa) * P(Aa)) * P(AA`)= ((n/z * m/z) *    0) = 0
-#        + P(?A | aa_aa) = P(Aa` | aa_aa) = P(aa_aa) * P(Aa`) = (P(aa) * P(aa)) * P(Aa`)= ((n/z * n/z) *    0) = 0
-#                        + P(AA` | aa_aa) = P(aa_aa) * P(AA`) = (P(aa) * P(aa)) * P(AA`)= ((n/z * n/z) *    0) = 0
+#  1 - P(aa`)
+#         = 1 - (
+#           P(aa` | AA_AA) = P(AA_AA) * P(aa`) = P(AA_AA) *    0
+#         + P(aa` | AA_Aa) = P(AA_Aa) * P(aa`) = P(AA_Aa) *    0
+#         + P(aa` | AA_aa) = P(AA_aa) * P(aa`) = P(AA_aa) *    0
+#         + P(aa` | Aa_AA) = P(Aa_AA) * P(aa`) = P(Aa_AA) *    0
+#         + P(aa` | Aa_Aa) = P(Aa_Aa) * P(aa`) = P(Aa_Aa) * 0.25
+#         + P(aa` | Aa_aa) = P(Aa_aa) * P(aa`) = P(Aa_aa) * 0.50
+#         + P(aa` | aa_AA) = P(aa_AA) * P(aa`) = P(aa_AA) *    0
+#         + P(aa` | aa_Aa) = P(aa_Aa) * P(aa`) = P(aa_Aa) * 0.50
+#         + P(aa` | aa_aa) = P(aa_aa) * P(aa`) = P(aa_aa) * 1.00
+#         )
 #
-#        = (2k)/(  z^2) + (4km)/(2 z^2) + (2kn)/(  z^2) + (3mm)/(4 z^2) + (2mn)/(2 z^2)
-#        = (8k)/(4 z^2) + (8km)/(4 z^2) + (8kn)/(4 z^2) + (3mm)/(4 z^2) + (4mn)/(4 z^2)
-#        = (8k + 8km + 8kn + 3mm + 4mn)/(4 z^2)
-#        = (2k + 2km + 2kn + mn)/(z^2) + (3mm / 4z^2)
+#         = 1 - (P(Aa)P(Aa)/4 + P(Aa)P(aa) + P(aa)P(aa))
+#         = 1 - (mm/4*z^2 + mn/z^2 + nn/z^2)
 #
-# EXAMPLE: (4 + 8 + 8 + 4)/(36) + (12/(4*36))
-#        = 24/36 + 12/114
-#        = 0.6667 + 0.1053
-#        = 0.7770                             # nope!
-#
+# EXAMPLE:= 1 - (4/4*36 + 4/36 + 4/36)
+#         = 1 - (9/36)
+#         = 0.75         #nope! wrong reasoning.
 #
 
 
