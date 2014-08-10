@@ -80,22 +80,32 @@
 #               + (m/z)(n/z-1)/2
 #               + (n/z)(m/z-1)/2
 #               + (n/z)(n-1/z-1)/1 )
-#         = 1 - (  mm-m  /4z(z-1)
-#               +  mn    /2z(z-1)
-#               +  nm    /2z(z-1)
-#               +  nn-n  /1z(z-1) )
-#         = 1 - (  (mm-m)/4
-#               +  mn +  nn-n )/(zz-z)
+#         = 1 - (  mm-m/(zz-z) *0.25
+#               +  2*mn/(zz-z) *0.5
+#               +  nn-n/(zz-z)
+#         = 1 - ( (mm-m)*0.25
+#               + (mn)
+#               + (nn-n) ) / (zz-z) )
+#         = 1 - ( 0.25(mm-m) + mn + nn - n ) / (zz-z) )
 #
-#         = 1 - ( mm + 4mn + 4nn -4n-m )/(4zz-4z)
+# EXAMPLE:= 1 - ( 0.25(4-2) + 4 + 4 - 2 ) / (36-6) )
+#         = 1 - ( 0.25(2) + 6) / 30)
+#         = 1 - ( 6.5 / 30)
+#         = 0.783333333        # ... GRRRRR!!!
 #
-# EXAMPLE:= 1 - (  4 +  16 +  16 -8-2 )/(4*36-16)
-#         = 1 - (26/128)
-#         = 0.796875        #nope!
-#
+function sumArray(a::Array{Int64,1}, memo=0)
+  for value = a
+    memo+=value
+  end
+  return memo
+end
 
-
-
-
-
+function f()
+  f = open("rosalind_iprb.txt")
+  line = readlines(f) # take only the first line
+  strings = split(line, " ")
+  ints = map((s)->int64(s), strings)
+  f.close()
+  return ints, sumArray(ints)
+end
 
