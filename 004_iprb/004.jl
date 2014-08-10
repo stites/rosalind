@@ -86,17 +86,18 @@
 #         = 1 - ( (mm-m)*0.25
 #               + (mn)
 #               + (nn-n) ) / (zz-z) )
-#         = 1 - ( 0.25(mm-m) + mn + nn - n ) / (zz-z) )
+#         = 1 - (( 0.25(mm-m) + mn + nn - n ) / (zz-z) )
 #
-# EXAMPLE:= 1 - ( 0.25(4-2) + 4 + 4 - 2 ) / (36-6) )
-#         = 1 - ( 0.25(2) + 6) / 30)
-#         = 1 - ( 6.5 / 30)
+# EXAMPLE:= 1 - (( 0.25(4-2) + 4 + 4 - 2 ) / (36-6) )
+#         = 1 - (( 0.25(2) + 6) / 30)
+#         = 1 - (( 6.5 / 30)
 #         = 0.783333333        # ... GRRRRR!!!
 #
 function sumArray(a::Array{Int64,1}, memo=0)
   for value = a
     memo+=value
   end
+  # the last line will be returned
   memo
 end
 
@@ -104,14 +105,17 @@ function strToIntArray(s::String, delim::String)
   map((s)->int64(s), split(s, delim))
 end
 
+function pChildHasDominantPhenotype(k, m, n, z)
+  1 - (( 0.25*(m*m-m) + m*n + n*n - n ) / (z*z-z) )
+end
+
 function f(f::IOStream)
   line = readlines(f)               # take only the first line
-  ints = strToIntArray(line, " ")
-
+  ints = strToIntArray(line[1], " ")
+  # lets take advantage of multiple assignments
   k, m, n = ints
   z = sumArray(ints)
-
-  f.close()
+  println(pChildHasDominantPhenotype(k, m, n, z))
 end
 
 open(f, "rosalind_iprb.txt")
