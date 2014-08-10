@@ -29,12 +29,13 @@ include("../utils.jl")
 
 function cb(str::String)
   n, k = strToIntArray(str, " ")
-  println(recurrenceRel(5, 3))
+  println(recurrenceRel(n, k))
 end
 
 function recurrenceRel(n::Int64, k::Int64)
   a, b = 1, 0
   for i = 1:n-1
+    # println(a," ", b)
     a, b = a+(b*k), a
   end
   return a
