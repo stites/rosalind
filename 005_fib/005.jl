@@ -18,18 +18,26 @@
 #
 # ========================================= #
 # let's check that thing I wrote:
-# F_0 = 1
 # F_1 = 1
-# F_2 = F_1 + F_0 * 3 = 1 + 1*3 = 4
-# F_3 = F_2 + F_1 * 3 = 4 + 1*3 = 7
-# F_4 = F_3 + F_2 * 3 = 7 + 4*3 = 19
+# F_2 = 1
+# F_3 = F_2 + F_1 * 3 = 1 + 1*3 = 4
+# F_4 = F_3 + F_2 * 3 = 4 + 1*3 = 7
+# F_5 = F_4 + F_3 * 3 = 7 + 4*3 = 19
 #
 # good! now lets write it out:
+include("../utils.jl")
 
+function cb(str::String)
+  n, k = strToIntArray(str, " ")
+  println(recurrenceRel(n, k))
+end
 
+function recurrenceRel(n::Int64, k::Int64)
+  if (n <= 2)
+    return 1
+  else
+    return recurrenceRel(n - 1, k) + (recurrenceRel(n - 2, k) * k)
+  end
+end
 
-
-
-
-
-
+openOneLine(cb, "rosalind_fib.txt")
