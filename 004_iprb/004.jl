@@ -93,30 +93,19 @@
 #         = 1 - (( 6.5 / 30)
 #         = 0.783333333        # ... GRRRRR!!!
 #
-function sumArray(a::Array{Int64,1}, memo=0)
-  for value = a
-    memo+=value
-  end
-  # the last line will be returned
-  memo
-end
-
-function strToIntArray(s::String, delim::String)
-  map((s)->int64(s), split(s, delim))
-end
+include("../utils.jl")
 
 function pChildHasDominantPhenotype(k, m, n, z)
   1 - (( 0.25*(m*m-m) + m*n + n*n - n ) / (z*z-z) )
 end
 
-function f(f::IOStream)
-  line = readlines(f)               # take only the first line
-  ints = strToIntArray(line[1], " ")
+function cb(str::String)
+  ints = strToIntArray(str, " ")
   # lets take advantage of multiple assignments
   k, m, n = ints
-  z = sumArray(ints)
+  z = reduce(+, ints)
   println(pChildHasDominantPhenotype(k, m, n, z))
 end
 
-open(f, "rosalind_iprb.txt")
+openOneLine(cb, "rosalind_iprb.txt")
 
