@@ -97,15 +97,22 @@ function sumArray(a::Array{Int64,1}, memo=0)
   for value = a
     memo+=value
   end
-  return memo
+  memo
 end
 
-function f()
-  f = open("rosalind_iprb.txt")
-  line = readlines(f) # take only the first line
-  strings = split(line, " ")
-  ints = map((s)->int64(s), strings)
-  f.close()
-  return ints, sumArray(ints)
+function strToIntArray(s::String, delim::String)
+  map((s)->int64(s), split(s, delim))
 end
+
+function f(f::IOStream)
+  line = readlines(f)               # take only the first line
+  ints = strToIntArray(line, " ")
+
+  k, m, n = ints
+  z = sumArray(ints)
+
+  f.close()
+end
+
+open(f, "rosalind_iprb.txt")
 
