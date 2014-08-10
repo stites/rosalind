@@ -29,15 +29,15 @@ include("../utils.jl")
 
 function cb(str::String)
   n, k = strToIntArray(str, " ")
-  println(recurrenceRel(n, k))
+  println(recurrenceRel(5, 3))
 end
 
 function recurrenceRel(n::Int64, k::Int64)
-  if (n <= 2)
-    return 1
-  else
-    return recurrenceRel(n - 1, k) + (recurrenceRel(n - 2, k) * k)
+  a, b = 1, 0
+  for i = 1:n-1
+    a, b = a+(b*k), a
   end
+  return a
 end
 
 openOneLine(cb, "rosalind_fib.txt")
